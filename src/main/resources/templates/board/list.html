@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:insert="~{layout/default::head}" />
+</head>
+<body>
+    <th:block th:insert="layout/default::header"/>
+    <main>
+    	<h1>메인영역</h1>
+    	<div class="wrap view-size">
+    		<p class="page-tit">게시글페이지</p>
+    		<div class="flex end">
+    			<a href="/boards/write">글쓰기</a>
+    		</div>
+    		
+    		<table border="1" >
+    			<tr>
+    				<td>글번호</td>
+    				<td>제목</td>
+    				<td>조회수</td>
+    				<td>작성자</td>
+    				<td>작성일</td>
+    			</tr>
+    			<tr th:each="dto : ${list}">
+    				<td th:text="${dto.bno}">글번호</td>
+    				<td><a th:href="|/boards/${dto.bno}|">[[${dto.title}]]</a></td>
+    				<td th:text="${dto.readCount}">조회수</td>
+    				<td>[[${dto.writer}]]</td>
+    				<td>
+    					<span th:if="${dto.updatedDate.toLocalDate() ne dto.toDay}"
+    					th:text="${dto.updatedDate.toLocalDate()}">날짜만 출력</span>
+    					<span th:if="${dto.updatedDate.toLocalDate() eq dto.toDay}" 
+    					th:text="${#temporals.format(dto.updatedDate, 'HH시 mm분 ss초')}">시간만 출력</span>
+    				</td>
+    			</tr>
+    			<tr th:if="${p.getNumberOfElements()==0}">
+    				<td colspan="5">존재하지 않는페이지</td>
+    			</tr>
+    		</table>
+    		<div th:if="${p.getNumberOfElements()>0}">
+    			<a th:if="${p.hasPrevious()}" th:href="|/boards?page=${p.getNumber()}|">&lt;</a>
+    			<span th:text="${p.getNumber()+1}">현재페이지</span>
+    			/
+    			<span th:text="${p.getTotalPages()}">총페이지수</span> 
+    			<a th:if="${p.hasNext()}" th:href="|/boards?page=${p.getNumber()+2}|">&gt;</a>
+    		</div>
+    	</div>
+    </main>
+</body>
+</html>

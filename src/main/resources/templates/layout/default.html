@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Insert title here</title>
+	    <link rel="stylesheet" href="/css/commons/common.css">
+	    <style type="text/css">
+	    	header{
+	    		border-bottom: 1px solid #a9a9a9;
+	    	}
+	    	header>.wrap ul>li>a{
+	    		padding: 0.5em 1em;
+	    		display: inline-block;
+	    	}
+	    	
+	    </style>
+	    <script src="/js/jquery-3.6.1.min.js"></script>
+	</head>
+	<header>
+    	<h1>헤더</h1>
+    	<div class="wrap view-size flex between">
+    		<ul class="flex">
+    			<li><a href="/">HOME</a></li>
+    			<li><a href="/boards">게시글</a></li>
+    		</ul>
+    		<ul class="flex">
+    			<li sec:authorize="isAnonymous()"><a href="/signin">로그인</a></li>
+    			<li sec:authorize="isAuthenticated()" class="flex">
+    				<span th:with="email=${#authentication.principal.email}">
+    					<i th:text="${#strings.substring(email,0,6)+'...('+#authentication.principal.name+')'} "></i>
+    				</span>
+    				<form action="/logout" method="post">
+						<input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}" />
+						<button>로그아웃</button>
+    				</form>
+    				
+    			</li>
+    		</ul>
+    	</div>
+    </header>
+</html>

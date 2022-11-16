@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:insert="~{layout/default::head}" />
+</head>
+<body>
+    <th:block th:insert="layout/default::header"/>
+    <main>
+    	<h1>메인영역</h1>
+    	<div class="wrap view-size">
+    		<p class="page-tit">게시글 쓰기</p>
+    		<form action="/boards" method="post">
+    			<table>
+    				<tr>
+    					<td>
+    						<input type="text" name="title" placeholder="제목입력">
+    					</td>
+    				</tr>
+    				<tr>
+    					<td>
+    						<textarea rows="5" cols="100" name="content" placeholder="내용입력"></textarea>
+    					</td>
+    				</tr>
+    				<tr>
+    					<td>
+    						<input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}" />
+							<button>등록</button>
+    					</td>
+    				</tr>
+    			</table>
+    		</form>
+    	</div>
+    </main>
+</body>
+</html>

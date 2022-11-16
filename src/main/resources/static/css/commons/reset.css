@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/* 기본적으로 제공되는 스탈일중 모든태그의 여백(마진,패딩)들을 적용하지 않음 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+*{margin: 0; padding: 0; box-sizing: border-box;}
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 500;
+	color: #222;
+}
+a{text-decoration: none; color: #222; text-underline-position: from-font;}
+li{list-style: none;}
+h1{position: absolute;  left: -9999px;}
+button{border: none; background-color: transparent; cursor: pointer;}
+address{font-style: normal;}
